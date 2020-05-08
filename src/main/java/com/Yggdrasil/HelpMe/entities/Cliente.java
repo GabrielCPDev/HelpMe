@@ -20,6 +20,10 @@ public  class Cliente implements Serializable{
 	private String cpf;
 	private String email;
 	private String telefone;
+	private Double nota;
+	
+	@ManyToMany
+	private List<Profissao> profissoes;
 	
 	@ManyToMany
 	private List<Servico> servicos;
@@ -28,13 +32,14 @@ public  class Cliente implements Serializable{
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String cpf, String email, String telefone) {
+	public Cliente(Integer id, String nome, String cpf, String email, String telefone, Double nota) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
 		this.telefone = telefone;
+		this.nota = nota;
 	}
 
 	public Integer getId() {
@@ -72,9 +77,28 @@ public  class Cliente implements Serializable{
 	public String getTelefone() {
 		return telefone;
 	}
+	
+
+	public Double getNota() {
+		return nota;
+	}
+
+	public void setNota(Double nota) {
+		this.nota = nota;
+	}
+
 
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	
+
+	public List<Profissao> getProfissoes() {
+		return profissoes;
+	}
+
+	public void setProfissoes(List<Profissao> profissoes) {
+		this.profissoes = profissoes;
 	}
 
 	
@@ -126,6 +150,5 @@ public  class Cliente implements Serializable{
 			return false;
 		return true;
 	}
-
 	
 }

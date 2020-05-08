@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.Yggdrasil.HelpMe.entities.Cliente;
 
 @Repository
-public interface PerssoaRepository extends JpaRepository<Cliente, Integer>{
+public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 
 }

@@ -12,17 +12,17 @@ import com.Yggdrasil.HelpMe.PersonDTO;
 import com.Yggdrasil.HelpMe.converters.impl.PessoaConverter;
 import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.exceptions.NotImplementation;
-import com.Yggdrasil.HelpMe.services.PessoaService;
+import com.Yggdrasil.HelpMe.services.ClienteService;
 
 
 
 
 @RestController
 @RequestMapping(value = "/pessoas")
-public class PessoaResource implements ApiREST<PersonDTO>{
+public class ClienteResource implements ApiREST<PersonDTO>{
 
 	@Autowired
-	private PessoaService service;
+	private ClienteService service;
 	
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)

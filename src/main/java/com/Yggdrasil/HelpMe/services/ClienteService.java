@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.Yggdrasil.HelpMe.entities.Cliente;
-import com.Yggdrasil.HelpMe.repositories.PerssoaRepository;
+import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
 
 @Service
-public class PessoaService {
+public class ClienteService {
 
 	@Autowired
-	private PerssoaRepository repo;
+	private ClienteRepository repo;
 
 	public Cliente buscar(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
@@ -21,5 +21,9 @@ public class PessoaService {
 
 	public Cliente salvar(Cliente cliente) {
 		return repo.save(cliente);
+	}
+	
+	public Cliente excluir (Cliente cliente) {
+		return null;
 	}
 }
