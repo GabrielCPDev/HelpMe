@@ -18,7 +18,7 @@ import com.Yggdrasil.HelpMe.services.ClienteService;
 
 
 @RestController
-@RequestMapping(value = "/pessoas")
+@RequestMapping(value = "/clientes")
 public class ClienteResource implements ApiREST<PersonDTO>{
 
 	@Autowired

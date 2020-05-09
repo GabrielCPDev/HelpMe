@@ -19,7 +19,7 @@ public  class Cliente implements Serializable{
 	private String nome;
 	private String cpf;
 	private String email;
-	private String telefone;
+	private Integer telefone;
 	private Double nota;
 	
 	@ManyToMany
@@ -32,7 +32,7 @@ public  class Cliente implements Serializable{
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String cpf, String email, String telefone, Double nota) {
+	public Cliente(Integer id, String nome, String cpf, String email, Integer telefone, Double nota) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -74,7 +74,7 @@ public  class Cliente implements Serializable{
 		this.email = email;
 	}
 
-	public String getTelefone() {
+	public Integer getTelefone() {
 		return telefone;
 	}
 	
@@ -88,7 +88,7 @@ public  class Cliente implements Serializable{
 	}
 
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(Integer telefone) {
 		this.telefone = telefone;
 	}
 	
