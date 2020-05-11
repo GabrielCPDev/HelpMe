@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.Yggdrasil.HelpMe.entities.Profissao;
 import com.Yggdrasil.HelpMe.repositories.ProfissaoRepository;
+import com.Yggdrasil.HelpMe.services.exceptions.ObjetoNaoEncontradoException;
 
 @Service
 public class ProfissaoService {
@@ -14,9 +15,9 @@ public class ProfissaoService {
 	@Autowired
 	private ProfissaoRepository repo;
 	
-	public Profissao buscar (Integer id) {
+	public Profissao buscar (Integer id) throws Exception {
 		Optional<Profissao> obj = repo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Profissão não encontrada! " + id + " , Tipo: " + Profissao.class.getName()));
 	}
 	
 

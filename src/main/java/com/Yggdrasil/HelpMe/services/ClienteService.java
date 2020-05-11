@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
+import com.Yggdrasil.HelpMe.services.exceptions.ObjetoNaoEncontradoException;
 
 @Service
 public class ClienteService {
@@ -14,9 +15,9 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repo;
 
-	public Cliente buscar(Integer id) {
+	public Cliente buscar(Integer id) throws Exception {
 		Optional<Cliente> obj = repo.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Cliente não encontrado! " + id + " , Tipo: " + Cliente.class.getName()));
 	}
 
 	public Cliente salvar(Cliente cliente) {

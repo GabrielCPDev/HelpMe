@@ -18,7 +18,7 @@ public class ProfissaoResource {
 	private ProfissaoService service;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?>find(@PathVariable Integer id){
+	public ResponseEntity<?>find(@PathVariable Integer id) throws Exception{
 		Profissao obj =  service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 		}

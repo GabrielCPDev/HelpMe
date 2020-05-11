@@ -11,31 +11,26 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Yggdrasil.HelpMe.PersonDTO;
 import com.Yggdrasil.HelpMe.converters.impl.PessoaConverter;
 import com.Yggdrasil.HelpMe.entities.Cliente;
-import com.Yggdrasil.HelpMe.exceptions.NotImplementation;
 import com.Yggdrasil.HelpMe.services.ClienteService;
+import com.Yggdrasil.HelpMe.services.exceptions.ObjetoNaoEncontradoException;
 
 
 
 
 @RestController
 @RequestMapping(value = "/clientes")
-public class ClienteResource implements ApiREST<PersonDTO>{
+public class ClienteResource {
 
 	@Autowired
 	private ClienteService service;
 	
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Integer id) throws Exception {
 		Cliente obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);	
    }
 	
-	@Override
-	@RequestMapping(value="/page/{page}/qtd/{qtd}", method=RequestMethod.GET)
-	public ResponseEntity<?> findPaginated(@PathVariable Integer page,@PathVariable Integer qtd) {
-		throw new NotImplementation();
-	}
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<?> save(@RequestBody PersonDTO pessoaDTO) {
@@ -44,18 +39,14 @@ public class ClienteResource implements ApiREST<PersonDTO>{
 		Cliente obj = service.salvar(cliente);
 		return ResponseEntity.ok().body(obj);	
    }
-
-
-	@Override
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<?> update(@PathVariable Integer id,@RequestBody PersonDTO dtoDTO) {
-		throw new NotImplementation();
+		throw new ObjetoNaoEncontradoException("Objeto não encontrado!");
 	}
 
-
-	@Override
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<?> delete(Integer id) {
-		throw new NotImplementation();
+		throw new ObjetoNaoEncontradoException("Objeto não encontrado!");
 	}
 }	
