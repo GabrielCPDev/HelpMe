@@ -19,9 +19,12 @@ public class Servico implements Serializable{
 	
 	@OneToOne
 	private Cliente contratante;
+	@OneToOne
 	private Cliente contratado;
 	private Calendar data;
 	private Double valor;
+	
+	
 	
 	public Servico () {
 	}

@@ -8,7 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.Yggdrasil.HelpMe.entities.Cliente;
+import com.Yggdrasil.HelpMe.entities.Profissao;
 import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
+import com.Yggdrasil.HelpMe.repositories.ProfissaoRepository;
 
 @SpringBootApplication
 public class HelpMeApplication implements CommandLineRunner {
@@ -16,12 +18,26 @@ public class HelpMeApplication implements CommandLineRunner {
 	@Autowired
 	private ClienteRepository repo; 
 	
+	@Autowired
+	private ProfissaoRepository profissaoReposity;
+	
 	public static void main(String[] args) {
 		SpringApplication.run(HelpMeApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		
+		Profissao p1 = new Profissao(null, "Pedreiro");
+		Profissao p2 = new Profissao(null, "Padeiro");
+		Profissao p3 = new Profissao(null, "Confeiteiro");
+		Profissao p4 = new Profissao(null, "Eletricista");
+		Profissao p5 = new Profissao(null, "Ajudante de Padeiro");
+		Profissao p6 = new Profissao(null, "Ajudante de Pedreiro");
+		Profissao p7 = new Profissao(null, "Ajudante de Eletricista");
+		
+		
+		
 		Cliente cli1 = new Cliente();
 		cli1.setId(null);
 		cli1.setNome("Gabriel");
@@ -29,7 +45,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli1.setEmail("gabriel@live.com");
 		cli1.setTelefone(999999999);
 		cli1.setNota(null);
-		cli1.setProfissoes(null);
+		cli1.getProfissoes().addAll(Arrays.asList(p1,p2));
 		
 		Cliente cli2 = new Cliente();
 		cli2.setId(null);
@@ -38,7 +54,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli2.setEmail("marcelo@live.com");
 		cli2.setTelefone(54925865);
 		cli2.setNota(null);
-		cli2.setProfissoes(null);
+		cli2.getProfissoes().addAll(Arrays.asList(p4,p2));
 		
 		Cliente cli3 = new Cliente();
 		cli3.setId(null);
@@ -47,7 +63,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli3.setEmail("andre@live.com");
 		cli3.setTelefone(65482569);
 		cli3.setNota(null);
-		cli3.setProfissoes(null);
+		cli3.getProfissoes().addAll(Arrays.asList(p6,p5));
 		
 		Cliente cli4 = new Cliente();
 		cli4.setId(null);
@@ -56,9 +72,18 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli4.setEmail("matheus@live.com");
 		cli4.setTelefone(999999999);
 		cli4.setNota(null);
-		cli4.setProfissoes(null);
+		cli4.getProfissoes().addAll(Arrays.asList(p7,p3));
+		
+		p1.getClientes().addAll(Arrays.asList(cli1));
+		p2.getClientes().addAll(Arrays.asList(cli2));
+		p3.getClientes().addAll(Arrays.asList(cli4));
+		p4.getClientes().addAll(Arrays.asList(cli2));
+		p5.getClientes().addAll(Arrays.asList(cli3));
+		p6.getClientes().addAll(Arrays.asList(cli3));
+		p7.getClientes().addAll(Arrays.asList(cli4));
 		
 		repo.saveAll(Arrays.asList(cli1, cli2, cli3, cli4));
+		profissaoReposity.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7));
 		
 	}
 

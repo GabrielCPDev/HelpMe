@@ -1,6 +1,7 @@
 package com.Yggdrasil.HelpMe.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -22,8 +23,8 @@ public  class Cliente implements Serializable{
 	private Integer telefone;
 	private Double nota;
 	
-	@ManyToMany
-	private List<Profissao> profissoes;
+	@ManyToMany(mappedBy = "clientes")
+	private List<Profissao> profissoes =  new ArrayList<>();
 	
 	@ManyToMany
 	private List<Servico> servicos;

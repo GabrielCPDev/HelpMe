@@ -1,11 +1,16 @@
 package com.Yggdrasil.HelpMe.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Profissao implements Serializable{
@@ -15,6 +20,13 @@ public class Profissao implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@ManyToMany
+	@JoinTable(name = "PROFISSAO_CLIENTE",
+	joinColumns = @JoinColumn(name = "profissao_id"),
+	inverseJoinColumns = @JoinColumn(name = "cliente_id")
+)
+	private List<Cliente> clientes = new ArrayList<>();
 	
 	public Profissao () {
 	}
@@ -41,6 +53,14 @@ public class Profissao implements Serializable{
 		this.nome = nome;
 	}
 
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,6 +85,7 @@ public class Profissao implements Serializable{
 			return false;
 		return true;
 	}
+
 	
 	
 }
