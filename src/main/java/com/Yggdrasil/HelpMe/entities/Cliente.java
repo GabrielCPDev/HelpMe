@@ -2,14 +2,20 @@ package com.Yggdrasil.HelpMe.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
+import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -21,13 +27,20 @@ public  class Cliente implements Serializable{
 	private Integer id;
 	private String nome;
 	private String cpf;
-	private String email;
-	private Integer telefone;
+	private String email;	
+	private Integer tipo;
 	private Double nota;
 	
 	@JsonManagedReference
 	@ManyToMany(mappedBy = "clientes")
 	private List<Profissao> profissoes =  new ArrayList<>();
+	
+	@OneToMany(mappedBy = "cliente" )
+	private List<Endereco> enderecos = new ArrayList<>();
+	
+	@ElementCollection
+	@CollectionTable(name = "telefone")
+	private Set<String> telefones = new HashSet<>();
 	
 	@ManyToMany
 	private List<Servico> servicos;
@@ -36,15 +49,17 @@ public  class Cliente implements Serializable{
 	public Cliente() {
 	}
 
-	public Cliente(Integer id, String nome, String cpf, String email, Integer telefone, Double nota) {
+
+	public Cliente(Integer id, String nome, String cpf, String email, TipoCliente tipo, Double nota) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
-		this.telefone = telefone;
+		this.tipo = tipo.getCodigo();
 		this.nota = nota;
 	}
+
 
 	public Integer getId() {
 		return id;
@@ -78,11 +93,6 @@ public  class Cliente implements Serializable{
 		this.email = email;
 	}
 
-	public Integer getTelefone() {
-		return telefone;
-	}
-	
-
 	public Double getNota() {
 		return nota;
 	}
@@ -91,11 +101,14 @@ public  class Cliente implements Serializable{
 		this.nota = nota;
 	}
 
-
-	public void setTelefone(Integer telefone) {
-		this.telefone = telefone;
-	}
 	
+	public TipoCliente getTipo() {
+		return TipoCliente.toEnum(tipo);
+	}
+
+	public void setTipo(TipoCliente tipo) {
+		this.tipo = tipo.getCodigo();
+	}
 
 	public List<Profissao> getProfissoes() {
 		return profissoes;
@@ -105,18 +118,35 @@ public  class Cliente implements Serializable{
 		this.profissoes = profissoes;
 	}
 
-	
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -127,32 +157,15 @@ public  class Cliente implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		if (cpf == null) {
-			if (other.cpf != null)
-				return false;
-		} else if (!cpf.equals(other.cpf))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (telefone == null) {
-			if (other.telefone != null)
-				return false;
-		} else if (!telefone.equals(other.telefone))
-			return false;
 		return true;
 	}
+
+	
+	
 	
 }
