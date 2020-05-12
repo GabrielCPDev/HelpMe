@@ -2,8 +2,8 @@ package com.Yggdrasil.HelpMe.entities.enums;
 
 public enum TipoCliente {
 
-	FORNECEDORDESERVICO(1, "Cliente que fornece serviços"),
-	NAOFORNECEDORDESERVICO(2, "Cliente que não fornece serviços");
+	FORNECESERVICO(1, "Cliente que fornece serviços"),
+	NAOFORNECESERVICO(2, "Cliente que não fornece serviços");
 	
 	private int codigo;
 	private String descricao;

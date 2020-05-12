@@ -7,19 +7,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.Yggdrasil.HelpMe.entities.Servico;
-import com.Yggdrasil.HelpMe.services.ServicoService;
+import com.Yggdrasil.HelpMe.entities.Pedido;
+import com.Yggdrasil.HelpMe.services.PedidoService;
 
 @RestController
 @RequestMapping(value = "/servicos")
-public class ServicoResource {
+public class PedidoResource {
 	
 	@Autowired
-	public ServicoService service;
+	public PedidoService service;
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id){
-		Servico  obj = service.buscar(id);
+		Pedido  obj = service.buscar(id);
 		return ResponseEntity.ok().body(obj);
 		}
 

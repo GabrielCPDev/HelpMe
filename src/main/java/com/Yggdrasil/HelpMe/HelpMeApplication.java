@@ -1,5 +1,7 @@
 package com.Yggdrasil.HelpMe;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,19 @@ import com.Yggdrasil.HelpMe.entities.Cidade;
 import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.entities.Endereco;
 import com.Yggdrasil.HelpMe.entities.Estado;
+import com.Yggdrasil.HelpMe.entities.Pagamento;
+import com.Yggdrasil.HelpMe.entities.PagamentoComCartao;
+import com.Yggdrasil.HelpMe.entities.PagamentoComDinheiro;
+import com.Yggdrasil.HelpMe.entities.Pedido;
 import com.Yggdrasil.HelpMe.entities.Profissao;
+import com.Yggdrasil.HelpMe.entities.enums.EstadoPagamento;
 import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
 import com.Yggdrasil.HelpMe.repositories.CidadeRepository;
 import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
 import com.Yggdrasil.HelpMe.repositories.EnderecoRepository;
 import com.Yggdrasil.HelpMe.repositories.EstadoRepository;
+import com.Yggdrasil.HelpMe.repositories.PagamentoRepository;
+import com.Yggdrasil.HelpMe.repositories.PedidoRepository;
 import com.Yggdrasil.HelpMe.repositories.ProfissaoRepository;
 
 @SpringBootApplication
@@ -36,6 +45,10 @@ public class HelpMeApplication implements CommandLineRunner {
 	
 	@Autowired
 	private EnderecoRepository enterecoRepository;
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(HelpMeApplication.class, args);
@@ -119,7 +132,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli1.setNome("Gabriel");
 		cli1.setCpf("12345678909");
 		cli1.setEmail("gabriel@live.com");
-		cli1.setTipo(TipoCliente.FORNECEDORDESERVICO);
+		cli1.setTipo(TipoCliente.FORNECESERVICO);
 		cli1.setNota(null);
 		cli1.getProfissoes().addAll(Arrays.asList(p1,p2));
 		cli1.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
@@ -132,7 +145,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli2.setEmail("marcelo@live.com");
 		cli2.setNota(null);
 		cli2.getProfissoes().addAll(Arrays.asList(p4,p2));
-		cli2.setTipo(TipoCliente.FORNECEDORDESERVICO);
+		cli2.setTipo(TipoCliente.FORNECESERVICO);
 		cli2.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli2.getEnderecos().addAll(Arrays.asList(e2));
 
@@ -146,7 +159,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli3.setEmail("andre@live.com");
 		cli3.setNota(null);
 		cli3.getProfissoes().addAll(Arrays.asList(p6,p5));
-		cli3.setTipo(TipoCliente.FORNECEDORDESERVICO);
+		cli3.setTipo(TipoCliente.FORNECESERVICO);
 		cli3.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli3.getEnderecos().addAll(Arrays.asList(e3));
 
@@ -159,7 +172,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli4.setEmail("matheus@live.com");
 		cli4.setNota(null);
 		cli4.getProfissoes().addAll(Arrays.asList(p7,p3));
-		cli4.setTipo(TipoCliente.FORNECEDORDESERVICO);
+		cli4.setTipo(TipoCliente.FORNECESERVICO);
 		cli4.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli4.getEnderecos().addAll(Arrays.asList(e4));
 
@@ -172,7 +185,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli5.setEmail("matheus@live.com");
 		cli5.setNota(null);
 		cli5.getProfissoes().addAll(Arrays.asList(p7,p3));
-		cli5.setTipo(TipoCliente.NAOFORNECEDORDESERVICO);
+		cli5.setTipo(TipoCliente.NAOFORNECESERVICO);
 		cli5.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli5.getEnderecos().addAll(Arrays.asList(e5));
 
@@ -201,7 +214,25 @@ public class HelpMeApplication implements CommandLineRunner {
 		
 		enterecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5));
 		
-	
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		
+		Pedido ped1 = new Pedido(null, cli1, p2, sdf.parse("30/09/2020 14:30"), (double) 300, e1);
+		Pedido ped2 = new Pedido(null, cli2, p1, sdf.parse("20/07/2020 21:30"), (double) 700, e2);
+		Pedido ped3 = new Pedido(null, cli3, p3, sdf.parse("10/10/2020 17:00"), (double) 1000, e3);
+
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, cli1, e1, 6);
+		ped1.setPamamento(pagto1);
+		Pagamento pagto2 = new PagamentoComDinheiro(null, EstadoPagamento.PENDENTE, ped2, cli2, e2);
+		ped2.setPamamento(pagto2);
+		Pagamento pagto3 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped3, cli3, e3, 12);
+		ped3.setPamamento(pagto3);
+		
+		cli1.setPedidos(Arrays.asList(ped1));
+		cli2.setPedidos(Arrays.asList(ped2));
+		cli3.setPedidos(Arrays.asList(ped3));
+
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2, pagto3));
 	}
 
 }

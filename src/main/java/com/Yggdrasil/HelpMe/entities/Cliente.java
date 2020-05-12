@@ -42,8 +42,8 @@ public  class Cliente implements Serializable{
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
 	
-	@ManyToMany
-	private List<Servico> servicos;
+	@OneToMany(mappedBy = "solicitante" )
+	private List<Pedido> pedidos =  new ArrayList<>();
 
 	
 	public Cliente() {
@@ -59,7 +59,6 @@ public  class Cliente implements Serializable{
 		this.tipo = tipo.getCodigo();
 		this.nota = nota;
 	}
-
 
 	public Integer getId() {
 		return id;
@@ -118,6 +117,13 @@ public  class Cliente implements Serializable{
 		this.profissoes = profissoes;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	public List<Endereco> getEnderecos() {
 		return enderecos;
