@@ -2,6 +2,8 @@ package com.Yggdrasil.HelpMe.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -26,20 +29,21 @@ public class Pedido implements Serializable{
 	private Date instante;	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
-	private Double valor;
 	@OneToOne
 	@JoinColumn(name = "enderecoDoSolicitante_id")
 	private Endereco enderecoDoSolicitante;
+	
+	@OneToMany(mappedBy = "id.pedido")
+	private Set<ItemPedido> itens = new HashSet<>();
 			
 	public Pedido () {
 	}
 
-	public Pedido(Integer id,Cliente solicitante, Profissao profissao, Date instante, Double valor, Endereco enderecoDoSolicitante) {
+	public Pedido(Integer id,Cliente solicitante, Profissao profissao, Date instante, Endereco enderecoDoSolicitante) {
 		super();
 		this.id = id;
 		this.profissao = profissao;
 		this.instante = instante;
-		this.valor = valor;
 		this.enderecoDoSolicitante = enderecoDoSolicitante;
 	}
 
@@ -66,14 +70,6 @@ public class Pedido implements Serializable{
 		this.instante = instante;
 	}
 
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}
-
 	public Pagamento getPagamento() {
 		return pagamento;
 	}
@@ -89,6 +85,15 @@ public class Pedido implements Serializable{
 	public void setSolicitante(Cliente solicitante) {
 		this.solicitante = solicitante;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
 
 	
 	public Endereco getEnderecoDoSolicitante() {

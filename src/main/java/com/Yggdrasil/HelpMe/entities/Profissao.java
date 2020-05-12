@@ -2,7 +2,9 @@ package com.Yggdrasil.HelpMe.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,9 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Profissao implements Serializable{
@@ -32,6 +34,11 @@ public class Profissao implements Serializable{
 )
 	private List<Cliente> clientes = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "id.profissao")
+	private Set<ItemPedido> itens = new HashSet<>();
+	
+
+	
 	public Profissao () {
 	}
 
@@ -39,6 +46,15 @@ public class Profissao implements Serializable{
 		super();
 		this.id = id;
 		this.nome = nome;
+	}
+	
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<Pedido>();
+		for(ItemPedido x : itens) {
+			lista.add(x.getPedido());			
+		}
+		
+		return lista;
 	}
 
 	public Integer getId() {
@@ -64,6 +80,15 @@ public class Profissao implements Serializable{
 	public void setClientes(List<Cliente> clientes) {
 		this.clientes = clientes;
 	}
+
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+
 	
 	@Override
 	public int hashCode() {
@@ -88,8 +113,6 @@ public class Profissao implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	
+	}	
 	
 }

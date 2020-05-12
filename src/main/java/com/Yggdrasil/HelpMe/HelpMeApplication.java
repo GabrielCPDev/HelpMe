@@ -1,7 +1,6 @@
 package com.Yggdrasil.HelpMe;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import com.Yggdrasil.HelpMe.entities.Cidade;
 import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.entities.Endereco;
 import com.Yggdrasil.HelpMe.entities.Estado;
+import com.Yggdrasil.HelpMe.entities.ItemPedido;
 import com.Yggdrasil.HelpMe.entities.Pagamento;
 import com.Yggdrasil.HelpMe.entities.PagamentoComCartao;
 import com.Yggdrasil.HelpMe.entities.PagamentoComDinheiro;
@@ -24,6 +24,7 @@ import com.Yggdrasil.HelpMe.repositories.CidadeRepository;
 import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
 import com.Yggdrasil.HelpMe.repositories.EnderecoRepository;
 import com.Yggdrasil.HelpMe.repositories.EstadoRepository;
+import com.Yggdrasil.HelpMe.repositories.ItemPedidoRepository;
 import com.Yggdrasil.HelpMe.repositories.PagamentoRepository;
 import com.Yggdrasil.HelpMe.repositories.PedidoRepository;
 import com.Yggdrasil.HelpMe.repositories.ProfissaoRepository;
@@ -49,6 +50,8 @@ public class HelpMeApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(HelpMeApplication.class, args);
@@ -216,9 +219,9 @@ public class HelpMeApplication implements CommandLineRunner {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Pedido ped1 = new Pedido(null, cli1, p2, sdf.parse("30/09/2020 14:30"), (double) 300, e1);
-		Pedido ped2 = new Pedido(null, cli2, p1, sdf.parse("20/07/2020 21:30"), (double) 700, e2);
-		Pedido ped3 = new Pedido(null, cli3, p3, sdf.parse("10/10/2020 17:00"), (double) 1000, e3);
+		Pedido ped1 = new Pedido(null, cli1, p2, sdf.parse("30/09/2020 14:30"), e1);
+		Pedido ped2 = new Pedido(null, cli2, p1, sdf.parse("20/07/2020 21:30"), e2);
+		Pedido ped3 = new Pedido(null, cli3, p3, sdf.parse("10/10/2020 17:00"), e3);
 
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, cli1, e1, 6);
 		ped1.setPamamento(pagto1);
@@ -233,6 +236,20 @@ public class HelpMeApplication implements CommandLineRunner {
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2, pagto3));
+	
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 2);
+		ItemPedido ip2 = new ItemPedido(ped2, p2, 4);
+		ItemPedido ip3 = new ItemPedido(ped3, p3, 3);
+
+		ped1.getItens().addAll(Arrays.asList(ip1));
+		ped2.getItens().addAll(Arrays.asList(ip2));
+		ped3.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip2));
+		p3.getItens().addAll(Arrays.asList(ip3));
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
