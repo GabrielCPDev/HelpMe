@@ -16,8 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public  class Cliente implements Serializable{
@@ -32,11 +31,10 @@ public  class Cliente implements Serializable{
 	private Integer tipo;
 	private Double nota;
 	
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany(mappedBy = "clientes")
 	private List<Profissao> profissoes =  new ArrayList<>();
-	
-	@JsonManagedReference
+		
 	@OneToMany(mappedBy = "cliente" )
 	private List<Endereco> enderecos = new ArrayList<>();
 	
@@ -44,7 +42,7 @@ public  class Cliente implements Serializable{
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
 	
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "solicitante" )
 	private List<Pedido> pedidos =  new ArrayList<>();
 	
