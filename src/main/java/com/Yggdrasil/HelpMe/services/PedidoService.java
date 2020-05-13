@@ -22,5 +22,6 @@ public class PedidoService {
 	
 	public Pedido salvar(Pedido pedido) {
 		return repo.save(pedido);
-	}
+	}	
+	
 }

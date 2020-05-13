@@ -219,23 +219,17 @@ public class HelpMeApplication implements CommandLineRunner {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Pedido ped1 = new Pedido(null, cli1, p2, sdf.parse("30/09/2020 14:30"), e1);
-		Pedido ped2 = new Pedido(null, cli2, p1, sdf.parse("20/07/2020 21:30"), e2);
-		Pedido ped3 = new Pedido(null, cli3, p3, sdf.parse("10/10/2020 17:00"), e3);
+		Pedido ped1 = new Pedido(null, cli1, p1, sdf.parse("30/09/2020 14:30"),e1);
+		Pedido ped2 = new Pedido(null, cli2, p2, sdf.parse("20/07/2020 14:30"),e2);
+		Pedido ped3 = new Pedido(null, cli3, p3, sdf.parse("10/10/2020 14:30"),e3);
 
-		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, cli1, e1, 6);
-		ped1.setPamamento(pagto1);
-		Pagamento pagto2 = new PagamentoComDinheiro(null, EstadoPagamento.PENDENTE, ped2, cli2, e2);
-		ped2.setPamamento(pagto2);
-		Pagamento pagto3 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped3, cli3, e3, 12);
-		ped3.setPamamento(pagto3);
 		
 		cli1.setPedidos(Arrays.asList(ped1));
 		cli2.setPedidos(Arrays.asList(ped2));
 		cli3.setPedidos(Arrays.asList(ped3));
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3));
-		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2, pagto3));
+	
 	
 		ItemPedido ip1 = new ItemPedido(ped1, p1, 2);
 		ItemPedido ip2 = new ItemPedido(ped2, p2, 4);

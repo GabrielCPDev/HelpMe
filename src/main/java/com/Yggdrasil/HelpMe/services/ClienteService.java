@@ -20,11 +20,13 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Cliente não encontrado! " + id + " , Tipo: " + Cliente.class.getName()));
 	}
 
-	public Cliente salvar(Cliente cliente) {
-		return repo.save(cliente);
+	public Cliente salvar(Cliente obj) {
+		obj.setId(null);
+		return repo.save(obj);
 	}
 	
-	public Cliente excluir (Cliente cliente) {
-		return null;
+	public Cliente atualizar (Cliente obj) throws Exception {
+		buscar(obj.getId());
+		return repo.save(obj);
 	}
 }

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,10 +29,8 @@ public class Pedido implements Serializable{
 	@OneToOne
 	private Profissao profissao;
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm ")
-	private Date instante;	
+	private Date instante;		
 	
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
-	private Pagamento pagamento;
 	@OneToOne
 	@JoinColumn(name = "enderecoDoSolicitante_id")
 	private Endereco enderecoDoSolicitante;
@@ -73,14 +70,6 @@ public class Pedido implements Serializable{
 
 	public void setInstante(Date instante) {
 		this.instante = instante;
-	}
-
-	public Pagamento getPagamento() {
-		return pagamento;
-	}
-
-	public void setPamamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
 	}
 	
 	public Cliente getSolicitante() {

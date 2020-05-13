@@ -38,9 +38,7 @@ public class Profissao implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.profissao")
 	private Set<ItemPedido> itens = new HashSet<>();
-	
-
-	
+		
 	public Profissao () {
 	}
 

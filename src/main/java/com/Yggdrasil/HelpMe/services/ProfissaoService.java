@@ -20,5 +20,10 @@ public class ProfissaoService {
 		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Profissão não encontrada! " + id + " , Tipo: " + Profissao.class.getName()));
 	}
 	
+	public Profissao salvar(Profissao obj) {
+		obj.setId(null);
+		return repo.save(obj);
+	}
+	
 
 }

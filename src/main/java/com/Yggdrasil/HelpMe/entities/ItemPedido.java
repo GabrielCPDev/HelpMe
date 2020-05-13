@@ -33,9 +33,9 @@ public class ItemPedido implements Serializable {
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
-	@JsonIgnore
-	public Profissao getProfissao() {
-		return id.getProfissao();
+	
+	public String getProfissao() {
+		return id.getProfissao().getNome();
 	}
 	
 	public ItemPedidoPK getId() {
