@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Pedido implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -21,12 +24,15 @@ public class Pedido implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;	
+	
 	@OneToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente solicitante;	
 	@OneToOne
 	private Profissao profissao;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm ")
 	private Date instante;	
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 	@OneToOne
@@ -54,8 +60,8 @@ public class Pedido implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Profissao getProfissao() {
-		return profissao;
+	public String getProfissao() {
+		return profissao.getNome();
 	}
 
 	public void setProfissao(Profissao profissao) {

@@ -1,17 +1,13 @@
 package com.Yggdrasil.HelpMe;
 
-/**
- * Ao criar um DTO é necessário que os nomes dos atributos tenham o mesmo nome que as entidades
- * 
- * **/
 public class PersonDTO {
+	
 	private Integer id;
 	private String name;
 	private String cpf;
 	private String email;
 	private String telefone;
-	
-	
+		
 	public Integer getId() {
 		return id;
 	}
@@ -41,8 +37,5 @@ public class PersonDTO {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
-	}
-	
-	
-	
+	}	
 }

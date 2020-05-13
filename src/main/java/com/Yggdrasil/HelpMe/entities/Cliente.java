@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -31,10 +32,11 @@ public  class Cliente implements Serializable{
 	private Integer tipo;
 	private Double nota;
 	
-	@JsonManagedReference
+	@JsonBackReference
 	@ManyToMany(mappedBy = "clientes")
 	private List<Profissao> profissoes =  new ArrayList<>();
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente" )
 	private List<Endereco> enderecos = new ArrayList<>();
 	
@@ -42,9 +44,9 @@ public  class Cliente implements Serializable{
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>();
 	
+	
 	@OneToMany(mappedBy = "solicitante" )
 	private List<Pedido> pedidos =  new ArrayList<>();
-
 	
 	public Cliente() {
 	}
@@ -129,21 +131,17 @@ public  class Cliente implements Serializable{
 		return enderecos;
 	}
 
-
 	public void setEnderecos(List<Endereco> enderecos) {
 		this.enderecos = enderecos;
 	}
-
 
 	public Set<String> getTelefones() {
 		return telefones;
 	}
 
-
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -152,7 +150,6 @@ public  class Cliente implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -169,9 +166,5 @@ public  class Cliente implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-	
-	
-	
+	}	
 }

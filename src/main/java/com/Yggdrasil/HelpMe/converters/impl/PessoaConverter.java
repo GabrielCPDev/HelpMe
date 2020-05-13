@@ -30,8 +30,5 @@ public class PessoaConverter implements Converter<Cliente, PersonDTO>{
 			e.printStackTrace();
 		}
 		return dto;
-
-
 	}
-
 }

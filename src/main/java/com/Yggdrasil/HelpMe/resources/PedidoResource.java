@@ -11,7 +11,7 @@ import com.Yggdrasil.HelpMe.entities.Pedido;
 import com.Yggdrasil.HelpMe.services.PedidoService;
 
 @RestController
-@RequestMapping(value = "/servicos")
+@RequestMapping(value = "/pedidos")
 public class PedidoResource {
 	
 	@Autowired
