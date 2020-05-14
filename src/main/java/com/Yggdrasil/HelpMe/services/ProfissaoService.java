@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.Yggdrasil.HelpMe.dto.ProfissaoDTO;
 import com.Yggdrasil.HelpMe.entities.Profissao;
 import com.Yggdrasil.HelpMe.repositories.ProfissaoRepository;
 import com.Yggdrasil.HelpMe.services.exceptions.DataIntegrityExceptionException;
@@ -31,6 +32,11 @@ public class ProfissaoService {
 		return repo.save(obj);
 	}
 	
+	public Profissao atualizar(Profissao obj) throws Exception {
+		buscar(obj.getId());
+		return repo.save(obj);
+	}
+	
 	public void excluir(Integer id) throws Exception {
 		buscar(id);
 		try {
@@ -48,6 +54,10 @@ public class ProfissaoService {
 	public Page<Profissao> EncontrarPagina(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
 		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Profissao fromDTO(ProfissaoDTO objDto) {
+		return new Profissao(objDto.getId(), objDto.getNome());
 	}
 
 }
