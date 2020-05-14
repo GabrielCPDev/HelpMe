@@ -26,8 +26,7 @@ public class Pedido implements Serializable{
 	@OneToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente solicitante;	
-	@OneToOne
-	private Profissao profissao;
+	
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm ")
 	private Date instante;		
 	
@@ -41,11 +40,11 @@ public class Pedido implements Serializable{
 	public Pedido () {
 	}
 
-	public Pedido(Integer id,Cliente solicitante, Profissao profissao, Date instante, Endereco enderecoDoSolicitante) {
+	public Pedido(Integer id,Cliente solicitante, Date instante, Endereco enderecoDoSolicitante) {
 		super();
 		this.id = id;
-		this.profissao = profissao;
 		this.instante = instante;
+		this.solicitante = solicitante;
 		this.enderecoDoSolicitante = enderecoDoSolicitante;
 	}
 
@@ -56,14 +55,7 @@ public class Pedido implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getProfissao() {
-		return profissao.getNome();
-	}
-
-	public void setProfissao(Profissao profissao) {
-		this.profissao = profissao;
-	}
-	
+		
 	public Date getInstante() {
 		return instante;
 	}

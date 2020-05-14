@@ -29,4 +29,9 @@ public class ClienteService {
 		buscar(obj.getId());
 		return repo.save(obj);
 	}
+	
+	public void excluir (Integer id) throws Exception {
+		buscar(id);
+		repo.deleteById(id);
+	}
 }

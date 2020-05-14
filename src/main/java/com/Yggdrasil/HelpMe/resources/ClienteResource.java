@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.Yggdrasil.HelpMe.PersonDTO;
-import com.Yggdrasil.HelpMe.converters.impl.PessoaConverter;
 import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.services.ClienteService;
-import com.Yggdrasil.HelpMe.services.exceptions.ObjetoNaoEncontradoException;
 
 
 
@@ -45,6 +42,12 @@ public class ClienteResource {
 	public ResponseEntity<Void> update(@RequestBody Cliente obj, @PathVariable Integer id) throws Exception{
 		obj.setId(id);
 		obj= service.atualizar(obj);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) throws Exception{
+		service.excluir(id);
 		return ResponseEntity.noContent().build();
 	}
 	
