@@ -66,7 +66,20 @@ public class HelpMeApplication implements CommandLineRunner {
 		Profissao p4 = new Profissao(null, "Eletricista");
 		Profissao p5 = new Profissao(null, "Ajudante de Padeiro");
 		Profissao p6 = new Profissao(null, "Ajudante de Pedreiro");
-		Profissao p7 = new Profissao(null, "Ajudante de Eletricista");
+		Profissao p7 = new Profissao(null, "Mecânico");
+		Profissao p8 = new Profissao(null, "Motorista");
+		Profissao p9 = new Profissao(null, "Pintor");
+		Profissao p10 = new Profissao(null, "Dançarino");
+		Profissao p11 = new Profissao(null, "Mentiro(Político)");
+		Profissao p12 = new Profissao(null, "Jardineiro");
+		Profissao p13 = new Profissao(null, "Cantor");
+		Profissao p14 = new Profissao(null, "Design");
+		Profissao p15 = new Profissao(null, "Programador");
+		Profissao p16 = new Profissao(null, "Super Vilão");
+		Profissao p17 = new Profissao(null, "Super Herói");
+		Profissao p18 = new Profissao(null, "Guerreiro Sayajin");
+		Profissao p19 = new Profissao(null, "Assacino de aluguel");
+		Profissao p20 = new Profissao(null, "Treinador Pokemon");
 		
 		Estado est1 = new Estado(null, "Minas Gerais");
 		Estado est2 = new Estado(null, "São Paulo");
@@ -209,7 +222,7 @@ public class HelpMeApplication implements CommandLineRunner {
 			
 		repo.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5));
 		
-		profissaoReposity.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7));	
+		profissaoReposity.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20));	
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2, est3, est4));
 		

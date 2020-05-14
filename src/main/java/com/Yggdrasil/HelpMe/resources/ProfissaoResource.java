@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -49,4 +51,18 @@ public class ProfissaoResource {
 		List<ProfissaoDTO> listaDto = lista.stream().map(obj ->new ProfissaoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listaDto);
 	}
+	
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
+	public ResponseEntity<Page<ProfissaoDTO>> findPage (
+			@RequestParam(value = "pagina", defaultValue = "0") Integer pagina,
+			@RequestParam(value = "linhasPorPagina", defaultValue = "24")Integer linhasPorPagina, 
+			@RequestParam(value = "ordenarPor", defaultValue = "nome")String ordenarPor,
+			@RequestParam(value = "direcao", defaultValue = "ASC")String direcao){
+		
+		Page<Profissao> list = service.EncontrarPagina(pagina, linhasPorPagina, ordenarPor, direcao);
+		Page<ProfissaoDTO> listDto = list.map(obj -> new ProfissaoDTO(obj));
+		
+		return ResponseEntity.ok().body(listDto);
+	}
+	
 }

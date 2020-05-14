@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.Yggdrasil.HelpMe.entities.Profissao;
@@ -42,5 +45,9 @@ public class ProfissaoService {
 		return repo.findAll();
 	}
 	
+	public Page<Profissao> EncontrarPagina(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
+		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
+		return repo.findAll(pageRequest);
+	}
 
 }
