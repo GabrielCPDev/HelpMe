@@ -1,5 +1,6 @@
 package com.Yggdrasil.HelpMe.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,10 @@ public class ProfissaoService {
 		catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityExceptionException("Não é possível excluir essa Profissão pois ela é solicitada em pedidos em aberto");
 		}
+	}
+	
+	public List<Profissao> listarProfissoes(){
+		return repo.findAll();
 	}
 	
 
