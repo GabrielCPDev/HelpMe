@@ -13,13 +13,9 @@ import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.entities.Endereco;
 import com.Yggdrasil.HelpMe.entities.Estado;
 import com.Yggdrasil.HelpMe.entities.ItemPedido;
-import com.Yggdrasil.HelpMe.entities.Pagamento;
-import com.Yggdrasil.HelpMe.entities.PagamentoComCartao;
-import com.Yggdrasil.HelpMe.entities.PagamentoComDinheiro;
 import com.Yggdrasil.HelpMe.entities.Pedido;
 import com.Yggdrasil.HelpMe.entities.Profissao;
-import com.Yggdrasil.HelpMe.entities.enums.EstadoPagamento;
-import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
+import com.Yggdrasil.HelpMe.entities.Trabalhador;
 import com.Yggdrasil.HelpMe.repositories.CidadeRepository;
 import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
 import com.Yggdrasil.HelpMe.repositories.EnderecoRepository;
@@ -28,12 +24,16 @@ import com.Yggdrasil.HelpMe.repositories.ItemPedidoRepository;
 import com.Yggdrasil.HelpMe.repositories.PagamentoRepository;
 import com.Yggdrasil.HelpMe.repositories.PedidoRepository;
 import com.Yggdrasil.HelpMe.repositories.ProfissaoRepository;
+import com.Yggdrasil.HelpMe.repositories.TrabalhadorRepository;
 
 @SpringBootApplication
 public class HelpMeApplication implements CommandLineRunner {
 
 	@Autowired
-	private ClienteRepository repo; 
+	private ClienteRepository clienteRepository; 
+
+	@Autowired
+	private TrabalhadorRepository trabalhadorRepository; 
 	
 	@Autowired
 	private ProfissaoRepository profissaoReposity;
@@ -146,22 +146,18 @@ public class HelpMeApplication implements CommandLineRunner {
 		Cliente cli1 = new Cliente();
 		cli1.setId(null);
 		cli1.setNome("Gabriel");
-		cli1.setCpf("12345678909");
+		cli1.setCpfOuCnpj("12345678909");
 		cli1.setEmail("gabriel@live.com");
-		cli1.setTipo(TipoCliente.FORNECESERVICO);
-		cli1.setNota(null);
-		cli1.getProfissoes().addAll(Arrays.asList(p1,p2));
 		cli1.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli1.getEnderecos().addAll(Arrays.asList(e1));
 		
-		Cliente cli2 = new Cliente();
+		Trabalhador cli2 = new Trabalhador();
 		cli2.setId(null);
 		cli2.setNome("Marcelo");
-		cli2.setCpf("44444444444");
+		cli2.setCpfOuCnpj("44444444444");
 		cli2.setEmail("marcelo@live.com");
-		cli2.setNota(null);
+		cli2.setNota((double) 5);
 		cli2.getProfissoes().addAll(Arrays.asList(p4,p2));
-		cli2.setTipo(TipoCliente.FORNECESERVICO);
 		cli2.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli2.getEnderecos().addAll(Arrays.asList(e2));
 
@@ -171,24 +167,20 @@ public class HelpMeApplication implements CommandLineRunner {
 		Cliente cli3 = new Cliente();
 		cli3.setId(null);
 		cli3.setNome("Andre");
-		cli3.setCpf("6548214578");
+		cli3.setCpfOuCnpj("6548214578");
 		cli3.setEmail("andre@live.com");
-		cli3.setNota(null);
-		cli3.getProfissoes().addAll(Arrays.asList(p6,p5));
-		cli3.setTipo(TipoCliente.FORNECESERVICO);
 		cli3.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli3.getEnderecos().addAll(Arrays.asList(e3));
 
 
 		
-		Cliente cli4 = new Cliente();
+		Trabalhador cli4 = new Trabalhador();
 		cli4.setId(null);
 		cli4.setNome("Matheus");
-		cli4.setCpf("12345678909");
+		cli4.setCpfOuCnpj("12345678909");
 		cli4.setEmail("matheus@live.com");
-		cli4.setNota(null);
+		cli4.setNota((double)3);
 		cli4.getProfissoes().addAll(Arrays.asList(p7,p3));
-		cli4.setTipo(TipoCliente.FORNECESERVICO);
 		cli4.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli4.getEnderecos().addAll(Arrays.asList(e4));
 
@@ -197,30 +189,29 @@ public class HelpMeApplication implements CommandLineRunner {
 		Cliente cli5 = new Cliente();
 		cli5.setId(null);
 		cli5.setNome("Matheus");
-		cli5.setCpf("12345678909");
+		cli5.setCpfOuCnpj("12345678909");
 		cli5.setEmail("matheus@live.com");
-		cli5.setNota(null);
-		cli5.getProfissoes().addAll(Arrays.asList(p7,p3));
-		cli5.setTipo(TipoCliente.NAOFORNECESERVICO);
 		cli5.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli5.getEnderecos().addAll(Arrays.asList(e5));
 
 		
-		p1.getClientes().addAll(Arrays.asList(cli1));
-		p2.getClientes().addAll(Arrays.asList(cli2));
-		p3.getClientes().addAll(Arrays.asList(cli4));
-		p4.getClientes().addAll(Arrays.asList(cli2));
-		p5.getClientes().addAll(Arrays.asList(cli3));
-		p6.getClientes().addAll(Arrays.asList(cli3));
-		p7.getClientes().addAll(Arrays.asList(cli4));
+		p1.getTrabalhadores().addAll(Arrays.asList(cli2));
+		p2.getTrabalhadores().addAll(Arrays.asList(cli2));
+		p3.getTrabalhadores().addAll(Arrays.asList(cli4));
+		p4.getTrabalhadores().addAll(Arrays.asList(cli2));
+		p5.getTrabalhadores().addAll(Arrays.asList(cli4));
+		p6.getTrabalhadores().addAll(Arrays.asList(cli2));
+		p7.getTrabalhadores().addAll(Arrays.asList(cli4));
 	
-		e1.setCliente(cli1);
-		e2.setCliente(cli2);
-		e3.setCliente(cli3);
-		e4.setCliente(cli4);
-		e5.setCliente(cli5);		
+		e1.setPessoa(cli1);
+		e2.setPessoa(cli2);
+		e3.setPessoa(cli3);
+		e4.setPessoa(cli4);
+		e5.setPessoa(cli5);		
 			
-		repo.saveAll(Arrays.asList(cli1, cli2, cli3, cli4, cli5));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli3, cli5));
+		
+		trabalhadorRepository.saveAll(Arrays.asList(cli2, cli4));
 		
 		profissaoReposity.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20));	
 		
@@ -232,12 +223,12 @@ public class HelpMeApplication implements CommandLineRunner {
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Pedido ped1 = new Pedido(null, cli1, sdf.parse("30/09/2020 14:30"),e1);
-		Pedido ped2 = new Pedido(null, cli2, sdf.parse("20/07/2020 14:30"),e2);
+		Pedido ped1 = new Pedido(null, cli5, sdf.parse("30/09/2020 14:30"), e5);
+		Pedido ped2 = new Pedido(null, cli1, sdf.parse("30/09/2020 14:30"), e1);
 		Pedido ped3 = new Pedido(null, cli3, sdf.parse("10/10/2020 14:30"),e3);
 			
 		cli1.setPedidos(Arrays.asList(ped1));
-		cli2.setPedidos(Arrays.asList(ped2));
+		cli5.setPedidos(Arrays.asList(ped2));
 		cli3.setPedidos(Arrays.asList(ped3));
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3));

@@ -9,30 +9,29 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import com.Yggdrasil.HelpMe.dto.ClienteDTO;
 import com.Yggdrasil.HelpMe.dto.ProfissaoDTO;
-import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.entities.Profissao;
-import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
+import com.Yggdrasil.HelpMe.entities.Trabalhador;
+import com.Yggdrasil.HelpMe.repositories.TrabalhadorRepository;
 import com.Yggdrasil.HelpMe.services.exceptions.ObjetoNaoEncontradoException;
 
 @Service
-public class ClienteService {
+public class TrabalhadorService {
 
 	@Autowired
-	private ClienteRepository repo;
+	private TrabalhadorRepository repo;
 
-	public Cliente buscar(Integer id) throws Exception {
-		Optional<Cliente> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Cliente não encontrado! " + id + " , Tipo: " + Cliente.class.getName()));
+	public Trabalhador buscar(Integer id) throws Exception {
+		Optional<Trabalhador> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjetoNaoEncontradoException("Trabalhador não encontrado! " + id + " , Tipo: " + Trabalhador.class.getName()));
 	}
 
-	public Cliente salvar(Cliente obj) {
+	public Trabalhador salvar(Trabalhador obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 	
-	public Cliente atualizar (Cliente obj) throws Exception {
+	public Trabalhador atualizar (Trabalhador obj) throws Exception {
 		buscar(obj.getId());
 		return repo.save(obj);
 	}
@@ -41,17 +40,17 @@ public class ClienteService {
 		buscar(id);
 		repo.deleteById(id);
 	}
-	public List<Cliente> listarClientes(){
+	
+	public List<Trabalhador> listarTrabalhadores(){
 		return repo.findAll();
 	}
 	
-	public Page<Cliente> EncontrarPagina(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
+	public Page<Trabalhador> EncontrarPagina(Integer pagina, Integer linhasPorPagina, String ordenarPor, String direcao){
 		PageRequest pageRequest = PageRequest.of(pagina, linhasPorPagina, Direction.valueOf(direcao), ordenarPor);
 		return repo.findAll(pageRequest);
 	}
 	
-	public Cliente fromDTO(ClienteDTO objDto) {
-		return new Cliente(objDto.getId(), objDto.getNome(), null, null, null);
+	public Profissao fromDTO(ProfissaoDTO objDto) {
+		return new Profissao(objDto.getId(), objDto.getNome());
 	}
-	
 }

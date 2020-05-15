@@ -29,11 +29,11 @@ public class Profissao implements Serializable{
 	
 	@JsonManagedReference
 	@ManyToMany
-	@JoinTable(name = "PROFISSAO_CLIENTE",
+	@JoinTable(name = "PROFISSAO_TRABALHADOR",
 	joinColumns = @JoinColumn(name = "profissao_id"),
-	inverseJoinColumns = @JoinColumn(name = "cliente_id")
+	inverseJoinColumns = @JoinColumn(name = "trabalhador_id")
 )
-	private List<Cliente> clientes = new ArrayList<>();
+	private List<Trabalhador> trabalhadores = new ArrayList<>();
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "id.profissao")
@@ -74,12 +74,12 @@ public class Profissao implements Serializable{
 		this.nome = nome;
 	}
 
-	public List<Cliente> getClientes() {
-		return clientes;
+	public List<Trabalhador> getTrabalhadores() {
+		return trabalhadores;
 	}
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setTrabalhadores(List<Trabalhador> trabalhadores) {
+		this.trabalhadores = trabalhadores;
 	}
 
 	public Set<ItemPedido> getItens() {
@@ -90,30 +90,4 @@ public class Profissao implements Serializable{
 		this.itens = itens;
 	}
 
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Profissao other = (Profissao) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}	
-	
 }
