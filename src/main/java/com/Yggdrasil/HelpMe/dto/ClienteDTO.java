@@ -16,6 +16,9 @@ public class ClienteDTO implements Serializable {
 	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres" )
 	private String nome;
 	
+	public ClienteDTO() {
+	}
+	
 	public ClienteDTO(Cliente obj) {
 		super();
 		this.id = obj.getId();

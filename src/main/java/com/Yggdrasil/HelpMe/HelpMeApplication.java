@@ -208,32 +208,20 @@ public class HelpMeApplication implements CommandLineRunner {
 		e3.setPessoa(cli3);
 		e4.setPessoa(cli4);
 		e5.setPessoa(cli5);		
-			
-		clienteRepository.saveAll(Arrays.asList(cli1, cli3, cli5));
-		
-		trabalhadorRepository.saveAll(Arrays.asList(cli2, cli4));
-		
-		profissaoReposity.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20));	
-		
-		estadoRepository.saveAll(Arrays.asList(est1, est2, est3, est4));
-		
-		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5));		
-		
-		enterecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Pedido ped1 = new Pedido(null, cli5, sdf.parse("30/09/2020 14:30"), e5);
-		Pedido ped2 = new Pedido(null, cli1, sdf.parse("30/09/2020 14:30"), e1);
+		Pedido ped1 = new Pedido(null, cli1, sdf.parse("30/09/2020 14:30"), e1);
+	
+		Pedido ped2 = new Pedido(null, cli5, sdf.parse("30/09/2020 14:30"), e5);
+		
 		Pedido ped3 = new Pedido(null, cli3, sdf.parse("10/10/2020 14:30"),e3);
+	
 			
 		cli1.setPedidos(Arrays.asList(ped1));
 		cli5.setPedidos(Arrays.asList(ped2));
 		cli3.setPedidos(Arrays.asList(ped3));
-
-		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3));
-	
-	
+		
 		ItemPedido ip1 = new ItemPedido(ped1, p1, 2);
 		ItemPedido ip2 = new ItemPedido(ped2, p2, 4);
 		ItemPedido ip3 = new ItemPedido(ped3, p3, 3);
@@ -245,7 +233,33 @@ public class HelpMeApplication implements CommandLineRunner {
 		p1.getItens().addAll(Arrays.asList(ip1));
 		p2.getItens().addAll(Arrays.asList(ip2));
 		p3.getItens().addAll(Arrays.asList(ip3));
+		
+	
+		
+			
+		clienteRepository.saveAll(Arrays.asList(cli1, cli3, cli5));
+		
+		trabalhadorRepository.saveAll(Arrays.asList(cli2, cli4));
+		
+		estadoRepository.saveAll(Arrays.asList(est1, est2, est3, est4));
+		
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5));		
+		
+		enterecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5));		
+		
+		profissaoReposity.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20));	
+		
+		
 
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3));
+		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		
+		
+	
+	
+		
+
+		
 	}
 }
