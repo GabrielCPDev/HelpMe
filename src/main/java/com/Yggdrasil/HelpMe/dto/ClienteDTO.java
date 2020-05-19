@@ -2,6 +2,7 @@ package com.Yggdrasil.HelpMe.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
@@ -13,16 +14,19 @@ public class ClienteDTO implements Serializable {
 	
 	private Integer id;
 	@NotEmpty(message = "Preenchimento Obrigatório" )
-	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres" )
+	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caracteres" )
 	private String nome;
+	@NotEmpty(message = "Preenchimento Obrigatório")
+	@Email(message = "Email inválido")
+	private String email;
 	
 	public ClienteDTO() {
 	}
 	
 	public ClienteDTO(Cliente obj) {
-		super();
-		this.id = obj.getId();
-		this.nome = obj.getNome();
+		id = obj.getId();
+		nome = obj.getNome();
+		setEmail(obj.getEmail());
 	}
 
 	public Integer getId() {
@@ -39,6 +43,14 @@ public class ClienteDTO implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
