@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.Yggdrasil.HelpMe.dto.ClienteDTO;
+import com.Yggdrasil.HelpMe.dto.ClienteNewDTO;
 import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.services.ClienteService;
 
@@ -37,7 +38,8 @@ public class ClienteResource {
    }	
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> save(@RequestBody Cliente obj) {
+	public ResponseEntity<Void> save(@RequestBody ClienteNewDTO objDto) {
+		Cliente obj = service.fromDTO(objDto);
 		obj = service.salvar(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

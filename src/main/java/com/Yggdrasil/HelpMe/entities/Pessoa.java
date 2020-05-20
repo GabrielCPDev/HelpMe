@@ -47,7 +47,7 @@ public abstract class Pessoa implements Serializable {
 		this.nome = nome;
 		this.cpfOuCnpj = cpfOuCnpj;
 		this.email = email;
-		this.tipo = tipo.getCodigo();		
+		this.tipo = (tipo == null) ? null : tipo.getCodigo();		
 	}
 
 	public Integer getId() {

@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public  class Cliente extends Pessoa{

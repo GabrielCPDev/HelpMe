@@ -10,7 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
-import com.Yggdrasil.HelpMe.entities.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -20,7 +19,6 @@ public abstract class Pagamento implements Serializable {
 
 	@Id	
 	private Integer id;	
-	private Integer estado;
 	
 	@JsonIgnore
 	@OneToOne
@@ -31,11 +29,9 @@ public abstract class Pagamento implements Serializable {
 	public Pagamento () {
 	}
 
-	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido, Cliente cliente,
-			Endereco enderecoDoCliente) {
+	public Pagamento(Integer id, Pedido pedido, Cliente cliente, Endereco enderecoDoCliente) {
 		super();
 		this.id = id;		
-		this.estado = estado.getCod();
 		this.pedido = pedido;		
 	}
 
@@ -46,14 +42,6 @@ public abstract class Pagamento implements Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}	
-
-	public EstadoPagamento getEstado() {
-		return EstadoPagamento.toEnum(estado);
-	}
-
-	public void setEstado(EstadoPagamento estado) {
-		this.estado = estado.getCod();
-	}
 
 	public Pedido getPedido() {
 		return pedido;

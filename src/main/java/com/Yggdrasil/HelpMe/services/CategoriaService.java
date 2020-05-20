@@ -31,9 +31,10 @@ public class CategoriaService {
 		return repo.save(obj);
 	}
 	
-	public Categoria atualizar(Categoria obj) throws Exception {
-		buscar(obj.getId());
-		return repo.save(obj);
+	public Categoria atualizar (Categoria obj) throws Exception {
+		Categoria newObj = buscar(obj.getId());
+		atualizarDados(newObj, obj);
+		return repo.save(newObj);
 	}
 	
 	public void excluir(Integer id) throws Exception {
@@ -57,5 +58,9 @@ public class CategoriaService {
 	
 	public Categoria fromDTO(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+	
+	private void atualizarDados(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 }
