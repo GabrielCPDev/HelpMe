@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.Yggdrasil.HelpMe.dto.ClienteDTO;
-import com.Yggdrasil.HelpMe.dto.PessoaNewDTO;
+import com.Yggdrasil.HelpMe.dto.ClienteNewDTO;
 import com.Yggdrasil.HelpMe.entities.Cidade;
 import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.entities.Endereco;
@@ -73,7 +73,7 @@ public class ClienteService {
 		return new Cliente(objDto.getId(), objDto.getNome(), objDto.getEmail() , null, null);
 	}
 	
-	public Cliente fromDTO(PessoaNewDTO objDto) {
+	public Cliente fromDTO(ClienteNewDTO objDto) {
 		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getCpfOuCnpj(), objDto.getEmail(), TipoPessoa.toEnum(objDto.getTipo()));
 		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getQuadra(), objDto.getBairro(), objDto.getComplemento(), objDto.getCep(), cid, cli);

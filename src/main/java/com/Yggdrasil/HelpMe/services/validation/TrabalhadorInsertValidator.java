@@ -8,28 +8,24 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.Yggdrasil.HelpMe.dto.PessoaNewDTO;
-import com.Yggdrasil.HelpMe.entities.Cliente;
+import com.Yggdrasil.HelpMe.dto.TrabalhadorNewDTO;
 import com.Yggdrasil.HelpMe.entities.Trabalhador;
 import com.Yggdrasil.HelpMe.entities.enums.TipoPessoa;
-import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
 import com.Yggdrasil.HelpMe.repositories.TrabalhadorRepository;
 import com.Yggdrasil.HelpMe.resources.exceptions.FieldMessage;
 import com.Yggdrasil.HelpMe.services.validation.utils.BR;
 
-public class PessoaInsertValidator implements ConstraintValidator<PessoaInsert, PessoaNewDTO> {
+public class TrabalhadorInsertValidator implements ConstraintValidator<TrabalhadorInsert, TrabalhadorNewDTO> {
  
-	@Autowired
-	private ClienteRepository clienteRepository;
 	@Autowired
 	private TrabalhadorRepository trabalhadorRepository;
 	
 	@Override
-	public void initialize(PessoaInsert ann) {
+	public void initialize(TrabalhadorInsert ann) {
 	}
 	
  	@Override
- 	public boolean isValid(PessoaNewDTO objDto, ConstraintValidatorContext context) {
+ 	public boolean isValid(TrabalhadorNewDTO objDto, ConstraintValidatorContext context) {
  		List<FieldMessage> list = new ArrayList<>();
  		
  		if(objDto.getTipo().equals(TipoPessoa.PESSOAFISICA.getCodigo()) && !BR.isValidCPF(objDto.getCpfOuCnpj())) {
@@ -40,12 +36,6 @@ public class PessoaInsertValidator implements ConstraintValidator<PessoaInsert, 
  			list.add(new FieldMessage("cpfOuCnpj","CNPJ inválido"));
  		}
 
- 		Cliente cliente = clienteRepository.findByEmail(objDto.getEmail());
- 		
- 		if(cliente != null) {
- 			list.add(new FieldMessage("email", "Email já existe"));
- 		}
- 		
  		Trabalhador trabalhador = trabalhadorRepository.findByEmail(objDto.getEmail());
  		
  		if(trabalhador != null) {

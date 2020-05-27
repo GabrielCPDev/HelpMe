@@ -2,12 +2,15 @@ package com.Yggdrasil.HelpMe.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.Yggdrasil.HelpMe.entities.Trabalhador;
+import com.Yggdrasil.HelpMe.services.validation.TrabalhadorUpdate;
 
+@TrabalhadorUpdate
 public class TrabalhadorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
@@ -15,6 +18,10 @@ public class TrabalhadorDTO implements Serializable {
 	@NotEmpty(message = "Preenchimento Obrigatório" )
 	@Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 caracteres" )
 	private String nome;
+	
+	@NotEmpty(message = "Preenchimento Obrigatório")
+	@Email(message = "Email inválido")
+	private String email;
 	
 	public TrabalhadorDTO(Trabalhador obj) {
 		super();
@@ -36,6 +43,14 @@ public class TrabalhadorDTO implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
 	
