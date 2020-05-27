@@ -7,10 +7,10 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.Yggdrasil.HelpMe.services.validation.ClienteInsert;
+import com.Yggdrasil.HelpMe.services.validation.PessoaInsert;
 
-@ClienteInsert
-public class ClienteNewDTO implements Serializable{
+@PessoaInsert
+public class PessoaNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@NotEmpty(message = "Preenchimento Obrigatório" )
@@ -43,7 +43,7 @@ public class ClienteNewDTO implements Serializable{
 	
 	private Integer cidadeId;
 	
-	public ClienteNewDTO() {
+	public PessoaNewDTO() {
 	}
 
 	public String getNome() {

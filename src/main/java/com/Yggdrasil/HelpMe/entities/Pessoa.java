@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,6 +30,8 @@ public abstract class Pessoa implements Serializable {
 	private Integer id;
 	private String nome;
 	private String cpfOuCnpj;
+	
+
 	private String email;	
 	private Integer tipo;
 	
