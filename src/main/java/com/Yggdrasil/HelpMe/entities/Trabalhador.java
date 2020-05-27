@@ -6,7 +6,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
-import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
+import com.Yggdrasil.HelpMe.entities.enums.TipoPessoa;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -24,7 +24,7 @@ public class Trabalhador extends Pessoa {
 	}
 
 
-	public Trabalhador(Integer id, String nome, String cpfOuCnpj, String email, TipoCliente tipo, Double nota) {
+	public Trabalhador(Integer id, String nome, String cpfOuCnpj, String email, TipoPessoa tipo, Double nota) {
 		super(id, nome, cpfOuCnpj, email, tipo);
 		this.nota = nota;
 	}

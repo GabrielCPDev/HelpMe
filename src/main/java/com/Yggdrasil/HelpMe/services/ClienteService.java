@@ -16,7 +16,7 @@ import com.Yggdrasil.HelpMe.dto.ClienteNewDTO;
 import com.Yggdrasil.HelpMe.entities.Cidade;
 import com.Yggdrasil.HelpMe.entities.Cliente;
 import com.Yggdrasil.HelpMe.entities.Endereco;
-import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
+import com.Yggdrasil.HelpMe.entities.enums.TipoPessoa;
 import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
 import com.Yggdrasil.HelpMe.repositories.EnderecoRepository;
 import com.Yggdrasil.HelpMe.services.exceptions.ObjetoNaoEncontradoException;
@@ -74,7 +74,7 @@ public class ClienteService {
 	}
 	
 	public Cliente fromDTO(ClienteNewDTO objDto) {
-		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getCpfOuCnpj(), objDto.getEmail(), TipoCliente.toEnum(objDto.getTipo()));
+		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getCpfOuCnpj(), objDto.getEmail(), TipoPessoa.toEnum(objDto.getTipo()));
 		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getQuadra(), objDto.getBairro(), objDto.getComplemento(), objDto.getCep(), cid, cli);
 		cli.getEnderecos().add(end);

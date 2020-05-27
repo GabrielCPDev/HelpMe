@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
-import com.Yggdrasil.HelpMe.entities.enums.TipoCliente;
+import com.Yggdrasil.HelpMe.entities.enums.TipoPessoa;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -31,7 +32,7 @@ public abstract class Pessoa implements Serializable {
 	private String email;	
 	private Integer tipo;
 	
-	@OneToMany(mappedBy = "pessoa" )
+	@OneToMany(mappedBy = "pessoa", cascade =  CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
@@ -41,7 +42,7 @@ public abstract class Pessoa implements Serializable {
 	public Pessoa() {
 	}
 	
-	public Pessoa(Integer id, String nome, String cpfOuCnpj, String email, TipoCliente tipo) {
+	public Pessoa(Integer id, String nome, String cpfOuCnpj, String email, TipoPessoa tipo) {
 		super();
 		this.id = id;
 		this.nome = nome;

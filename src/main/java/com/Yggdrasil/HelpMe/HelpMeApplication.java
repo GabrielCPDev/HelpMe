@@ -21,7 +21,6 @@ import com.Yggdrasil.HelpMe.repositories.ClienteRepository;
 import com.Yggdrasil.HelpMe.repositories.EnderecoRepository;
 import com.Yggdrasil.HelpMe.repositories.EstadoRepository;
 import com.Yggdrasil.HelpMe.repositories.ItemPedidoRepository;
-import com.Yggdrasil.HelpMe.repositories.PagamentoRepository;
 import com.Yggdrasil.HelpMe.repositories.PedidoRepository;
 import com.Yggdrasil.HelpMe.repositories.ProfissaoRepository;
 import com.Yggdrasil.HelpMe.repositories.TrabalhadorRepository;
@@ -48,8 +47,7 @@ public class HelpMeApplication implements CommandLineRunner {
 	private EnderecoRepository enterecoRepository;
 	@Autowired
 	private PedidoRepository pedidoRepository;
-	@Autowired
-	private PagamentoRepository pagamentoRepository;
+	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
@@ -87,16 +85,21 @@ public class HelpMeApplication implements CommandLineRunner {
 		Estado est4 = new Estado(null, "Rio de Janeiro");
 		
 		
+		
 		Cidade c1 = new Cidade(null, "Uberlandia", est1);
 		Cidade c2 = new Cidade(null, "Mogi-Guaçu", est2);
 		Cidade c3 = new Cidade(null, "Natalândia", est1);
 		Cidade c4 = new Cidade(null, "Mogi-Mirim", est2);
 		Cidade c5 = new Cidade(null, "Campinas", est2);
+	
+		
+	
 		
 		est1.getCidades().addAll(Arrays.asList(c1, c3));
 		est2.getCidades().addAll(Arrays.asList(c2, c4, c5));
 		
-		
+		estadoRepository.saveAll(Arrays.asList(est1, est2, est3, est4));
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5));		
 		
 		Endereco e1 = new Endereco();
 		e1.setBairro("Centro");
@@ -156,7 +159,7 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli2.setNome("Marcelo");
 		cli2.setCpfOuCnpj("44444444444");
 		cli2.setEmail("marcelo@live.com");
-		cli2.setNota((double) 5);
+		cli2.setNota(5.0);
 		cli2.getProfissoes().addAll(Arrays.asList(p4,p2));
 		cli2.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli2.getEnderecos().addAll(Arrays.asList(e2));
@@ -194,6 +197,9 @@ public class HelpMeApplication implements CommandLineRunner {
 		cli5.getTelefones().addAll(Arrays.asList("38999999999","54888888888","11777777777"));
 		cli5.getEnderecos().addAll(Arrays.asList(e5));
 
+		clienteRepository.saveAll(Arrays.asList(cli1, cli3, cli5));
+		
+		trabalhadorRepository.saveAll(Arrays.asList(cli2, cli4));
 		
 		p1.getTrabalhadores().addAll(Arrays.asList(cli2));
 		p2.getTrabalhadores().addAll(Arrays.asList(cli2));
@@ -207,7 +213,11 @@ public class HelpMeApplication implements CommandLineRunner {
 		e2.setPessoa(cli2);
 		e3.setPessoa(cli3);
 		e4.setPessoa(cli4);
-		e5.setPessoa(cli5);		
+		e5.setPessoa(cli5);
+		
+		profissaoReposity.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20));	
+		
+		enterecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5));		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
@@ -235,31 +245,9 @@ public class HelpMeApplication implements CommandLineRunner {
 		p3.getItens().addAll(Arrays.asList(ip3));
 		
 	
-		
-			
-		clienteRepository.saveAll(Arrays.asList(cli1, cli3, cli5));
-		
-		trabalhadorRepository.saveAll(Arrays.asList(cli2, cli4));
-		
-		estadoRepository.saveAll(Arrays.asList(est1, est2, est3, est4));
-		
-		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5));		
-		
-		enterecoRepository.saveAll(Arrays.asList(e1,e2,e3,e4,e5));		
-		
-		profissaoReposity.saveAll(Arrays.asList(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16,p17,p18,p19,p20));	
-		
-		
-
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2, ped3));
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
-		
-		
-	
-	
-		
-
-		
+			
 	}
 }
