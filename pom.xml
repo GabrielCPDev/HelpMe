@@ -17,7 +17,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<version.commons.beanutils>1.8.3</version.commons.beanutils>
+		<version.commons.beanutils>1.9.2</version.commons.beanutils>
 		<version.apache.commons.lang>3.5</version.apache.commons.lang>
 		
 	</properties>
